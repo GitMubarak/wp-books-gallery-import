@@ -53,7 +53,7 @@ class Wbgi
 	private function wbgi_trigger_admin_hooks() {
 		
 		$wbgi_admin = new Wbgi_Admin();
-		//add_action( 'admin_enqueue_scripts', [$wbgi_admin, 'wbgi_enqueue_assets'] );
+		add_action( 'admin_enqueue_scripts', [$wbgi_admin, 'wbgi_enqueue_assets'] );
 		add_action( 'admin_menu', [$wbgi_admin, 'wbgi_create_tools_submenu'] );
 	}
 }

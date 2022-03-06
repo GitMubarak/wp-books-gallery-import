@@ -15,9 +15,9 @@ class Wbgi_Admin
 		
 		wp_enqueue_script(
 			'wbgi-admin',
-			WBGP_ASSETS . 'js/wbgi-admin.js',
+			WBGI_ASSETS . 'js/wbgi-admin.js',
 			['jquery'],
-			WBGP_VERSION,
+			WBGI_VERSION,
 			TRUE
 		);
 	}
@@ -36,5 +36,14 @@ class Wbgi_Admin
 	function wbgi_generate_import_page_content() {
 
 		require_once WBGI_PATH . 'admin/book-import-page.php';
+	}
+
+	protected function wbgi_display_notification( $type, $msg ) { 
+		?>
+		<div class="wbg-alert <?php esc_attr_e( $type ); ?>">
+			<span class="wbg-closebtn">&times;</span> 
+			<strong><?php esc_html_e( ucfirst( $type ), WBGI_TXT_DOMAIN ); ?>!</strong> <?php esc_html_e($msg, WBGI_TXT_DOMAIN); ?>
+		</div>
+		<?php 
 	}
 }
