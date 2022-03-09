@@ -43,57 +43,34 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
 
                             $post_arr = array(
                                 'post_type'		=> 'books',
-                                'post_title'   	=> $data[0],
+                                'post_title'   	=> utf8_encode($data[0]),
                                 'post_content' 	=> $data[21],
                                 'post_status'  	=> 'publish',
-                                'post_author'  	=> get_current_user_id(),
                                 'meta_input'   => array(
                                     'wbg_status' 		=> 'active',
-                                    //'wbg_author' 		=> $data[2],
-                                    //'wbg_publisher'		=> $data[3],
-                                    //'wbg_published_on' 	=> date('Y-m-d', strtotime($data[4])),
-                                    //'wbg_isbn'			=> $data[5],
-                                    //'wbg_pages'			=> $data[6],
-                                    //'wbg_country'		=> $data[7],
-                                    //'wbg_language'		=> $data[8],
-                                    //'wbg_dimension'		=> $data[9],
-                                    //'wbg_filesize'		=> $data[10],
-                                    //'wbg_download_link' => $data[11],
-                                    //'wbgp_buy_link'     => $data[12],
-                                    //'wbg_co_publisher'  => $data[13],
-                                    //'wbg_isbn_13'       => $data[14],
-                                    //'wbgp_regular_price' => $data[15],
-                                    //'wbgp_sale_price'   => $data[16],
-                                    //'wbg_cost_type'     => $data[17],
-                                    //'wbg_is_featured'   => $data[18],
-                                    //'wbg_item_weight'   => $data[19],
-                                    //'wbgp_img_url'      => $data[20],
-                                    'wbg_author'		=> isset( $data[2] ) ? sanitize_text_field( $data[2] ) : '',
-                                    'wbg_publisher'		=> isset( $data[3] ) ? sanitize_text_field( $data[3] ) : '',
-                                    'wbg_published_on'	=> isset( $data[4] ) ? sanitize_text_field( date('Y-m-d', strtotime($data[4])) ) : '',
-                                    'wbg_isbn' 			=> isset( $data[5] ) ? sanitize_text_field( $data[5] ) : '',
-                                    'wbg_pages'			=> isset( $data[6] ) ? sanitize_text_field( $data[6] ) : '',
-                                    'wbg_country' 		=> isset( $data[7] ) ? sanitize_text_field( $data[7] ) : '',
-                                    'wbg_language' 		=> isset( $data[8] ) ? sanitize_text_field( $data[8] ) : '',
-                                    'wbg_dimension'		=> isset( $data[9] ) ? sanitize_text_field( $data[9] ) : '',
-                                    'wbg_filesize' 		=> isset( $data[10] ) ? sanitize_text_field( $data[10] ) : '',
-                                    'wbg_download_link'	=> isset( $data[11] ) ? sanitize_text_field( $data[11] ) : '',
-                                    'wbgp_buy_link'		=> isset( $data[12] ) ? sanitize_text_field( $data[12] ) : '',
-                                    'wbg_co_publisher'	=> isset( $data[13] ) ? sanitize_text_field( $data[13] ) : '',
-                                    'wbg_isbn_13' 		=> isset( $data[14] ) ? sanitize_text_field( $data[14] ) : '',
-                                    //'wbg_status'		=> isset( $_POST['wbg_status'] ) ? sanitize_text_field( $_POST['wbg_status'] ) : '',
-                                    'wbgp_regular_price' => isset( $data[15] ) && filter_var( $data[15], FILTER_SANITIZE_NUMBER_INT ) ? $data[15] : '',
-                                    'wbgp_sale_price' 	=> isset( $data[16] ) && filter_var( $data[16], FILTER_SANITIZE_NUMBER_INT ) ? $data[16] : '',
-                                    'wbg_cost_type' 	=> isset( $data[17] ) && filter_var( $data[17], FILTER_SANITIZE_STRING ) ? $data[17] : '',
-                                    'wbg_is_featured' 	=> isset( $data[18] ) && filter_var( $data[18], FILTER_SANITIZE_STRING ) ? $data[18] : '',
-                                    'wbg_item_weight' 	=> isset( $data[19] ) ? sanitize_text_field( $data[19] ) : '',
-                                    'wbgp_img_url' 		=> isset( $data[20] ) ? sanitize_text_field( $data[20] ) : '',
+                                    'wbg_author'		=> isset( $data[2] ) ? $data[2] : '',
+                                    'wbg_publisher'		=> isset( $data[3] ) ? $data[3] : '',
+                                    'wbg_published_on'	=> isset( $data[4] ) ? date('Y-m-d', strtotime($data[4])) : '',
+                                    'wbg_isbn' 			=> isset( $data[5] ) ? $data[5] : '',
+                                    'wbg_pages'			=> isset( $data[6] ) ? $data[6] : '',
+                                    'wbg_country' 		=> isset( $data[7] ) ? $data[7] : '',
+                                    'wbg_language' 		=> isset( $data[8] ) ? $data[8] : '',
+                                    'wbg_dimension'		=> isset( $data[9] ) ? $data[9] : '',
+                                    'wbg_filesize' 		=> isset( $data[10] ) ? $data[10] : '',
+                                    'wbg_download_link'	=> isset( $data[11] ) ? $data[11] : '',
+                                    'wbgp_buy_link'		=> isset( $data[12] ) ? $data[12] : '',
+                                    'wbg_co_publisher'	=> isset( $data[13] ) ? $data[13] : '',
+                                    'wbg_isbn_13' 		=> isset( $data[14] ) ? $data[14] : '',
+                                    'wbgp_regular_price' => isset( $data[15] ) ? $data[15] : '',
+                                    'wbgp_sale_price' 	=> isset( $data[16] ) ? $data[16] : '',
+                                    'wbg_cost_type' 	=> isset( $data[17] ) ? $data[17] : '',
+                                    'wbg_is_featured' 	=> isset( $data[18] ) ? $data[18] : '',
+                                    'wbg_item_weight' 	=> isset( $data[19] ) ? $data[19] : '',
+                                    'wbgp_img_url' 		=> isset( $data[20] ) ? $data[20] : '',
                                 ),
                             );
                             
-                            $post_exists = post_exists( $data[0], '', '', 'books');
-                            
-                            if ( ! $post_exists ) {
+                            if ( ! post_exists( $data[0], '', '', 'books') ) {
                                 
                                 $post_id = wp_insert_post( $post_arr );
 
@@ -104,22 +81,13 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                                 } else {
                                     
                                     //there was an error in the post insertion, 
-                                    echo $post_id->get_error_message();
+                                    $wbgiUploadMsg = $post_id->get_error_message();
                                 }
                             }
-
-                            /*
-                            $num = count( $data );
-                            $row++;
-
-                            for ( $c=0; $c < $num; $c++ ) {
-                                echo $data[$c] . "<br />\n";
-                            }
-                            */
                         }
+
                         fclose( $handle );
                     }
-
 
                     $wbgiUploadMsg = __('Books Import Successful!', WBGI_TXT_DOMAIN);
                 }
