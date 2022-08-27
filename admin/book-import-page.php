@@ -133,7 +133,11 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
             </table>
             <p class="submit"><input type="submit" id="saveImportSettings" name="saveImportSettings"
                     class="button button-primary wbg-button" value="<?php _e('Import Books', WBGI_TXT_DOMAIN); ?>"></p>
-            <a href="<?php echo esc_url( WBGI_ASSETS . 'wbg-books-import.csv' ); ?>"><?php _e('Download csv format', WBGI_TXT_DOMAIN); ?></a>
+            <h3 style="color:red;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <?php _e('Before importing, arrange your data in the template provided below.', WBGI_TXT_DOMAIN); ?>
+            </h3>
+            <a href="<?php echo esc_url( WBGI_ASSETS . 'wbg-books-import.csv' ); ?>"><?php _e('Download template in CSV format', WBGI_TXT_DOMAIN); ?></a>
             </form>
 
         </div>
