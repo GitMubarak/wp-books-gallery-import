@@ -1,7 +1,7 @@
 === WP Books Gallery Import ===
 Contributors: hmplugin, mhmrajib
 Requires at least: 5.2
-Tested up to: 6.0.1
+Tested up to: 6.2.2
 Stable tag: 1.1
 Requires PHP: 7.2
 License: GPLv2 or later
@@ -43,7 +43,8 @@ You should see the books in your WBG Books -> All Books panel.
 == Changelog ==
 
 = 1.1 =
-* Initial release
+* Special character issue fixed
+* Multiple category issue fixed
 
 = 1.0 =
 * Initial release

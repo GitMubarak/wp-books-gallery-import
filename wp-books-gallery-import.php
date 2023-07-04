@@ -8,7 +8,7 @@
  * Author URI:			https://hmplugin.com
  * Requires at least:   5.2
  * Requires PHP:        7.2
- * Tested up to:        6.0.1
+ * Tested up to:        6.2.2
  * Text Domain:         wp-books-gallery-import
  * Domain Path:         /languages/
  * License:				GPL-2.0+

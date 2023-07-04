@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $wbgiUploadMsg = '';
+$br = 0;
     
 if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
     if( ! $_FILES['wbgi_upload']['error'] ) {
@@ -26,7 +27,7 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                 
                 if ( $r === false)  {
 
-                    $wbgiUploadMsg = 'The file cannor be copied in the folder ' . WBGI_PATH . 'upload. Check if it exists and is writeable. You can also ask for support to your hosting provider.';
+                    $wbgiUploadMsg = 'The file cannot be copied in the folder ' . WBGI_PATH . 'upload. Check if it exists and is writeable. You can also ask for support to your hosting provider.';
                 
                 } else {
                     
@@ -40,26 +41,27 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                         while ( ( $data = fgetcsv( $handle, 10000, ",") ) !== FALSE ) {
                             //echo '<pre>';
                             //print_r($data);
-
+                            //esc_html_e( $data[3] ); //mb_convert_encoding($data[3], 'ISO-8859-1', 'UTF-8');
+                            //echo htmlspecialchars( $data[3] );
                             $post_arr = array(
                                 'post_type'		=> 'books',
-                                'post_title'   	=> utf8_encode($data[0]),
-                                'post_content' 	=> $data[21],
+                                'post_title'   	=> isset( $data[0] ) ? sanitize_text_field( utf8_encode( $data[0] ) ) : '',
+                                'post_content' 	=> isset( $data[21] ) ? sanitize_text_field( utf8_encode( $data[21] ) ) : '',
                                 'post_status'  	=> 'publish',
                                 'meta_input'   => array(
                                     'wbg_status' 		=> 'active',
-                                    'wbg_author'		=> isset( $data[2] ) ? $data[2] : '',
-                                    'wbg_publisher'		=> isset( $data[3] ) ? $data[3] : '',
+                                    'wbg_author'		=> isset( $data[2] ) ? sanitize_text_field( utf8_encode( $data[2] ) ) : '',
+                                    'wbg_publisher'		=> isset( $data[3] ) ? sanitize_text_field( utf8_encode( $data[3] ) ) : '',
                                     'wbg_published_on'	=> isset( $data[4] ) ? date('Y-m-d', strtotime($data[4])) : '',
                                     'wbg_isbn' 			=> isset( $data[5] ) ? $data[5] : '',
                                     'wbg_pages'			=> isset( $data[6] ) ? $data[6] : '',
-                                    'wbg_country' 		=> isset( $data[7] ) ? $data[7] : '',
-                                    'wbg_language' 		=> isset( $data[8] ) ? $data[8] : '',
+                                    'wbg_country' 		=> isset( $data[7] ) ? sanitize_text_field( utf8_encode( $data[7] ) ) : '',
+                                    'wbg_language' 		=> isset( $data[8] ) ? sanitize_text_field( utf8_encode( $data[8] ) ) : '',
                                     'wbg_dimension'		=> isset( $data[9] ) ? $data[9] : '',
                                     'wbg_filesize' 		=> isset( $data[10] ) ? $data[10] : '',
                                     'wbg_download_link'	=> isset( $data[11] ) ? $data[11] : '',
                                     'wbgp_buy_link'		=> isset( $data[12] ) ? $data[12] : '',
-                                    'wbg_co_publisher'	=> isset( $data[13] ) ? $data[13] : '',
+                                    'wbg_co_publisher'	=> isset( $data[13] ) ? sanitize_text_field( utf8_encode( $data[13] ) ) : '',
                                     'wbg_isbn_13' 		=> isset( $data[14] ) ? $data[14] : '',
                                     'wbgp_regular_price' => isset( $data[15] ) ? $data[15] : '',
                                     'wbgp_sale_price' 	=> isset( $data[16] ) ? $data[16] : '',
@@ -71,12 +73,28 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                             );
                             
                             if ( ! post_exists( $data[0], '', '', 'books') ) {
+
+                                $br++;
                                 
                                 $post_id = wp_insert_post( $post_arr );
 
                                 if ( ! is_wp_error( $post_id ) ) {
 
-                                    wp_set_object_terms( $post_id, [$data[1]], 'book_category' );
+                                    if ( isset( $data[1] ) ) {
+
+                                        //wp_set_object_terms( $post_id, [sanitize_text_field( utf8_encode( $data[1] ) )], 'book_category' );
+                                        $categories = explode( ",", $data[1] );
+
+                                        foreach ( $categories as $cat ) {
+                                            wp_set_object_terms( $post_id, sanitize_text_field( utf8_encode( $cat ) ), 'book_category', true );
+                                        }
+                                    }
+
+                                    if ( isset( $data[22] ) ) {
+                                        foreach ( $data[22] as $val ) {
+                                            wp_set_object_terms( $post_id, $val, 'book_author', true );
+                                        }
+                                    }
 
                                 } else {
                                     
@@ -89,7 +107,7 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                         fclose( $handle );
                     }
 
-                    $wbgiUploadMsg = __('Books Import Successful!', WBGI_TXT_DOMAIN);
+                    $wbgiUploadMsg = $br . '&nbsp;' . __('Books Imported Successfully!', WBGI_TXT_DOMAIN);
                 }
             }
             
