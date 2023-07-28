@@ -3,7 +3,7 @@
  * Plugin Name:			WP Books Gallery Import
  * Plugin URI:			https://github.com/GitMubarak/wp-books-gallery-import
  * Description:			This is an extension WP Books Gallery Plugin which allows user to import books
- * Version:				1.1
+ * Version:				1.2
  * Author:				HM Plugin
  * Author URI:			https://hmplugin.com
  * Requires at least:   5.2
@@ -23,7 +23,7 @@ define( 'WBGI_SLUG', plugin_basename( __FILE__ ) );
 define( 'WBGI_PRFX', 'wbgi_' );
 define( 'WBGI_CLS_PRFX', 'cls-wbgi-' );
 define( 'WBGI_TXT_DOMAIN', 'wp-books-gallery-import' );
-define( 'WBGI_VERSION', '1.1' );
+define( 'WBGI_VERSION', '1.2' );
 
 // post_exists() doesn't work on admin end.
 // So need to include this.
