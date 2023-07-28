@@ -43,7 +43,7 @@ You should see the books in your WBG Books -> All Books panel.
 == Changelog ==
 
 = 1.2 =
-* Special
+* Only csv file permission checking added
 
 = 1.1 =
 * Special character issue fixed

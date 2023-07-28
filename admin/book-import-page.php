@@ -9,10 +9,15 @@ $br = 0;
 if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
     if( ! $_FILES['wbgi_upload']['error'] ) {
         
-        //can't be larger than 2MB
-        if ( $_FILES['wbgi_upload']['size'] > ( 2000000 ) ) {
+        $ext = pathinfo( $_FILES['wbgi_upload']['name'], PATHINFO_EXTENSION );
+        
+        // Checking the file type
+        if ( 'csv' !== $ext ) {
+            return __( 'Only csv file is permitted', WBGI_TXT_DOMAIN );
             
-            //wp_die generates a visually appealing message element
+        } else if ( $_FILES['wbgi_upload']['size'] > ( 10000000 ) ) {
+            
+            //can't be larger than 10MB
             $wbgiUploadMsg = __('Your file size is to large.', WBGI_TXT_DOMAIN);
             
         } else {
