@@ -44,6 +44,7 @@ You should see the books in your WBG Books -> All Books panel.
 
 = 1.2 =
 * Only csv file permission checking added
+* Delete the uploaded file after operation
 
 = 1.1 =
 * Special character issue fixed

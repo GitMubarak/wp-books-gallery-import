@@ -113,6 +113,7 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                     }
 
                     $wbgiUploadMsg = $br . '&nbsp;' . __('Books Imported Successfully!', WBGI_TXT_DOMAIN);
+                    unlink( $file );
                 }
             }
             
