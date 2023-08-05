@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $wbgiUploadMsg = '';
 $br = 0;
+
+//$text = "Archéologie et carrières de granulats de l'Yonne";
+//echo htmlspecialchars(html_entity_decode($text, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+
     
 if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
     if( ! $_FILES['wbgi_upload']['error'] ) {
@@ -26,7 +30,7 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
 
                 $file = WBGI_PATH . 'upload/wbg-books-import.csv';
 
-                unlink( $file );
+                //unlink( $file );
                 
                 $r = move_uploaded_file( $_FILES['wbgi_upload']['tmp_name'], WBGI_PATH . 'upload/' . $_FILES['wbgi_upload']['name'] );
                 
@@ -48,6 +52,7 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                             //print_r($data);
                             //esc_html_e( $data[3] ); //mb_convert_encoding($data[3], 'ISO-8859-1', 'UTF-8');
                             //echo htmlspecialchars( $data[3] );
+                            //echo mb_convert_encoding($data[0], 'ISO-8859-1', 'UTF-8');
                             $post_arr = array(
                                 'post_type'		=> 'books',
                                 'post_title'   	=> isset( $data[0] ) ? sanitize_text_field( utf8_encode( $data[0] ) ) : '',
@@ -78,12 +83,12 @@ if ( ! empty( $_FILES['wbgi_upload']['name'] ) ) {
                             );
                             
                             if ( ! post_exists( $data[0], '', '', 'books') ) {
-
-                                $br++;
                                 
                                 $post_id = wp_insert_post( $post_arr );
 
                                 if ( ! is_wp_error( $post_id ) ) {
+
+                                    $br++;
 
                                     if ( isset( $data[1] ) ) {
 
